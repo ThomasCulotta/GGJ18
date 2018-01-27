@@ -16,7 +16,7 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	void Start()
 	{
-		
+        _scanning = false;
     }
 
 	void Update()
@@ -54,7 +54,7 @@ public class ScannerEffectDemo : MonoBehaviour
 		_camera.depthTextureMode = DepthTextureMode.Depth;
 	}
 
-	[ImageEffectOpaque]
+	// [ImageEffectOpaque]
 	void OnRenderImage(RenderTexture src, RenderTexture dst)
 	{
 		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
