@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Waypoint
+    uniqueID: 1492291859
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

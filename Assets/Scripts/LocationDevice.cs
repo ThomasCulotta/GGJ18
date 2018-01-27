@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class LocationDevice : MonoBehaviour {
 
+    public GameObject waypoint;
+
     private const float deviceRadius = 10f;
     private const int radioLayerMask = 1 << 8;
-
-	// Use this for initialization
-	void Start () {
-        GetRadioComponentColliders(transform.position, deviceRadius);
-    }
 	
 	// Update is called once per frame
 	void Update () {
-        GetRadioComponentColliders(transform.position, deviceRadius);
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GetRadioComponentColliders(transform.position, deviceRadius);
+        }
 	}
 
     // Params: Device postion and detection field radius
@@ -22,11 +22,10 @@ public class LocationDevice : MonoBehaviour {
     void GetRadioComponentColliders(Vector3 center, float radius)
     {
         Collider[] hitColliders = Physics.OverlapSphere(center, radius, radioLayerMask);
-        int i = 0;
-        if (i < hitColliders.Length)
+        for (int i = 0; i< hitColliders.Length; i++)
         {
            Transform radioComponentTrans = hitColliders[i].transform;
-           Debug.DrawLine(transform.position, radioComponentTrans.position, Color.red);
+           Instantiate(waypoint, radioComponentTrans.position, Quaternion.identity);
         }
     }
 }
