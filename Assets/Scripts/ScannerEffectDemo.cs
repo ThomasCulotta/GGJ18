@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class ScannerEffectDemo : MonoBehaviour
 {
-	public Transform ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
     public float ScanSpeed;
@@ -27,6 +26,7 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	void Start()
 	{
+
         GameObject goal  = GameObject.FindGameObjectWithTag("Finish");
         GoalOrigin       = goal.transform;
         ScanDistance     = 0;
@@ -56,47 +56,20 @@ public class ScannerEffectDemo : MonoBehaviour
             }
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.One) && !scandelay)
+        if (Input.GetButton("Trigger") && !scandelay)
 		{
             scandelay = true;
 			_scanning = true;
 			ScanDistance = 0;
-            ScannerOriginPosition = ScannerOrigin.position;
+            ScannerOriginPosition = transform.position;
             pingsound.pitch = Random.Range(0.8f, 1.1f);
             pingsound.Play();
 
-            goaldistance = Vector3.Distance(transform.position, GoalOrigin.position);
+            goaldistance = Vector3.Distance(base.transform.position, GoalOrigin.position);
             scandelaytime = MaxScan == -1 ? (goaldistance / ScanSpeed + goaldistance / GoalScanSpeed) : 1f;
-            StartCoroutine(WaitForGoalPing());
 		}
 	}
 
-    private IEnumerator WaitForGoalPing()
-    {
-        yield return new WaitForSeconds(scandelaytime);
-        scandelay = false;
-    }
-
-    public void OnTriggerEnter(Collider jammer)
-    {
-        if (jammer.gameObject.name.Equals("Jammer(Clone)"))
-            MaxScan = 3;
-        else if (jammer.gameObject.name.Equals("JammerTrig"))
-        {
-            Destroy(jammer.transform.parent.gameObject);
-            MaxScan = -1;
-        }
-        else if (jammer.gameObject.name.Equals("Goal"))
-        {
-            SceneManager.LoadScene(1);
-        }
-    }
-
-    public void OnTriggerExit(Collider jammer)
-    {
-        if (jammer.gameObject.tag.Equals("Jammer"))
-            MaxScan = -1;
-    }
 
     void OnEnable()
 	{
