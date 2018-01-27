@@ -9,20 +9,21 @@ public class ScannerEffectDemo : MonoBehaviour
     public float ScanSpeed;
 
     private Transform GoalOrigin;
-    public float GoalScanDistance;
-    public float GoalScanSpeed;
 	private Camera _camera;
     private float MaxScan;
     private AudioSource pingsound;
     private AudioSource goalpingsound;
-
+    
     private Vector3 ScannerOriginPosition;
-    private float goaldistance;
-    private bool goalpinged;
     
 	bool _scanning;
     bool scandelay;
     float scandelaytime;
+
+    // VR Controller
+    private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+    private SteamVR_TrackedObject trackedObject;
+    private SteamVR_Controller.Device device;
 
 	void Start()
 	{
@@ -31,32 +32,18 @@ public class ScannerEffectDemo : MonoBehaviour
         GoalOrigin       = goal.transform;
         ScanDistance     = 0;
         ScanSpeed        = 4;
-        GoalScanDistance = 0;
-        GoalScanSpeed    = 6;
-        goaldistance     = 0;
         MaxScan          = -1;
         pingsound        = gameObject.GetComponent<AudioSource>();
         goalpingsound    = goal.GetComponent<AudioSource>();
         scandelay        = false;
         scandelaytime    = 1f;
+        trackedObject = GetComponent<SteamVR_TrackedObject>();
     }
 
 	void Update()
 	{
-        GoalScanDistance += Time.deltaTime * GoalScanSpeed;
-
-        if (_scanning && (MaxScan == -1 || ScanDistance < MaxScan))
-        {
-            ScanDistance += Time.deltaTime * ScanSpeed / (MaxScan == -1 ? 1 : 3);
-            if (ScanDistance > goaldistance - 2.2 && ScanDistance < goaldistance + 2.2)
-            {
-                goalpingsound.pitch = Random.Range(0.8f, 1f);
-                goalpingsound.Play();
-                GoalScanDistance = 0;
-            }
-        }
-
-        if (Input.GetButton("Trigger") && !scandelay)
+        device = SteamVR_Controller.Input((int)trackedObject.index);
+        if (device.GetPressDown(triggerButton) && !scandelay)
 		{
             scandelay = true;
 			_scanning = true;
@@ -64,9 +51,6 @@ public class ScannerEffectDemo : MonoBehaviour
             ScannerOriginPosition = transform.position;
             pingsound.pitch = Random.Range(0.8f, 1.1f);
             pingsound.Play();
-
-            goaldistance = Vector3.Distance(base.transform.position, GoalOrigin.position);
-            scandelaytime = MaxScan == -1 ? (goaldistance / ScanSpeed + goaldistance / GoalScanSpeed) : 1f;
 		}
 	}
 
@@ -83,7 +67,6 @@ public class ScannerEffectDemo : MonoBehaviour
 		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOriginPosition); //////////////////////////////////////
 		EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
         EffectMaterial.SetVector("_GoalWorldSpaceScannerPos", GoalOrigin.position);
-        EffectMaterial.SetFloat("_GoalScanDistance", GoalScanDistance);
         RaycastCornerBlit(src, dst, EffectMaterial);
 	}
 
@@ -154,9 +137,6 @@ public class ScannerEffectDemo : MonoBehaviour
         GoalOrigin = null;
         ScanDistance = 0;
         ScanSpeed = 4;
-        GoalScanDistance = 0;
-        GoalScanSpeed = 10;
-        goaldistance = 0;
         MaxScan = -1;
         scandelay = false;
         scandelaytime = 1f;
