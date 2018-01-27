@@ -1,65 +1,68 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-[ExecuteInEditMode]
-public class ScannerEffectDemo : MonoBehaviour
+public class ScannerEffectDemoDeprecated : MonoBehaviour
 {
-	public Transform ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
+    public float ScanSpeed;
 
+    private Transform GoalOrigin;
 	private Camera _camera;
-
-	// Demo Code
+    private float MaxScan;
+    private AudioSource pingsound;
+    
+    private Vector3 ScannerOriginPosition;
+    
 	bool _scanning;
-	
+    bool scandelay;
+    float scandelaytime;
+
+    // VR Controller
+    private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+    private SteamVR_TrackedObject trackedObject;
+    private SteamVR_Controller.Device device;
 
 	void Start()
 	{
-		
+        ScanDistance     = 0;
+        ScanSpeed        = 4;
+        MaxScan          = -1;
+        pingsound        = gameObject.GetComponent<AudioSource>();
+        scandelay        = false;
+        scandelaytime    = 1f;
+        trackedObject = GetComponent<SteamVR_TrackedObject>();
     }
 
 	void Update()
 	{
-		if (_scanning)
+        device = SteamVR_Controller.Input((int)trackedObject.index);
+        if (device.GetPressDown(triggerButton) && !scandelay)
 		{
-			ScanDistance += Time.deltaTime * 50;
-		}
-
-		if (Input.GetKeyDown(KeyCode.C))
-		{
+            scandelay = true;
 			_scanning = true;
 			ScanDistance = 0;
-            Debug.Log("Scan Sent");
-		}
-
-		if (Input.GetMouseButtonDown(0))
-		{
-			Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
-			if (Physics.Raycast(ray, out hit))
-			{
-				_scanning = true;
-				ScanDistance = 0;
-				ScannerOrigin.position = hit.point;
-			}
+            ScannerOriginPosition = transform.position;
+            pingsound.pitch = Random.Range(0.8f, 1.1f);
+            pingsound.Play();
 		}
 	}
-	// End Demo Code
 
-	void OnEnable()
+
+    void OnEnable()
 	{
-		_camera = Camera.main;
-		_camera.depthTextureMode = DepthTextureMode.Depth;
+        _camera = Camera.main;
+        _camera.depthTextureMode = DepthTextureMode.Depth;
 	}
 
 	[ImageEffectOpaque]
 	void OnRenderImage(RenderTexture src, RenderTexture dst)
 	{
-		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
+		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOriginPosition); //////////////////////////////////////
 		EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
-		RaycastCornerBlit(src, dst, EffectMaterial);
+        EffectMaterial.SetVector("_GoalWorldSpaceScannerPos", GoalOrigin.position);
+        RaycastCornerBlit(src, dst, EffectMaterial);
 	}
 
 	void RaycastCornerBlit(RenderTexture source, RenderTexture dest, Material mat)
@@ -123,4 +126,14 @@ public class ScannerEffectDemo : MonoBehaviour
 		GL.End();
 		GL.PopMatrix();
 	}
+
+    public void OnDestroy()
+    {
+        GoalOrigin = null;
+        ScanDistance = 0;
+        ScanSpeed = 4;
+        MaxScan = -1;
+        scandelay = false;
+        scandelaytime = 1f;
+    }
 }
