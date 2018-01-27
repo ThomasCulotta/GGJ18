@@ -2,46 +2,41 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class ScannerEffectDemo : MonoBehaviour
+public class ScannerEffectDemoDeprecated : MonoBehaviour
 {
-	public Transform ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
     public float ScanSpeed;
 
     private Transform GoalOrigin;
-    public float GoalScanDistance;
-    public float GoalScanSpeed;
 	private Camera _camera;
     private float MaxScan;
     private AudioSource pingsound;
-    private AudioSource goalpingsound;
-
+    
     private Vector3 ScannerOriginPosition;
-    private float goaldistance;
-    private bool goalpinged;
     
 	bool _scanning;
     bool scandelay;
     float scandelaytime;
 
+    // VR Controller
+    private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+    private SteamVR_TrackedObject trackedObject;
+    private SteamVR_Controller.Device device;
+
 	void Start()
 	{
-        GameObject goal  = GameObject.FindGameObjectWithTag("Finish");
-        GoalOrigin       = goal.transform;
         ScanDistance     = 0;
         ScanSpeed        = 4;
-        GoalScanDistance = 0;
-        GoalScanSpeed    = 6;
-        goaldistance     = 0;
         MaxScan          = -1;
         pingsound        = gameObject.GetComponent<AudioSource>();
-        goalpingsound    = goal.GetComponent<AudioSource>();
         scandelay        = false;
         scandelaytime    = 1f;
+        trackedObject = GetComponent<SteamVR_TrackedObject>();
     }
 
 	void Update()
+<<<<<<< HEAD:Assets/Scripts/ScannerEffectDemo.cs
 	{
         GoalScanDistance += Time.deltaTime * GoalScanSpeed;
 
@@ -57,50 +52,25 @@ public class ScannerEffectDemo : MonoBehaviour
         }
 
         //if (OVRInput.GetDown(OVRInput.Button.One) && !scandelay)
+=======
+	{
+        device = SteamVR_Controller.Input((int)trackedObject.index);
+        if (device.GetPressDown(triggerButton) && !scandelay)
+>>>>>>> patrick:Assets/Scripts/ScannerEffectDemoDeprecated.cs
 		{
             scandelay = true;
 			_scanning = true;
 			ScanDistance = 0;
-            ScannerOriginPosition = ScannerOrigin.position;
+            ScannerOriginPosition = transform.position;
             pingsound.pitch = Random.Range(0.8f, 1.1f);
             pingsound.Play();
-
-            goaldistance = Vector3.Distance(transform.position, GoalOrigin.position);
-            scandelaytime = MaxScan == -1 ? (goaldistance / ScanSpeed + goaldistance / GoalScanSpeed) : 1f;
-            StartCoroutine(WaitForGoalPing());
 		}
 	}
 
-    private IEnumerator WaitForGoalPing()
-    {
-        yield return new WaitForSeconds(scandelaytime);
-        scandelay = false;
-    }
-
-    public void OnTriggerEnter(Collider jammer)
-    {
-        if (jammer.gameObject.name.Equals("Jammer(Clone)"))
-            MaxScan = 3;
-        else if (jammer.gameObject.name.Equals("JammerTrig"))
-        {
-            Destroy(jammer.transform.parent.gameObject);
-            MaxScan = -1;
-        }
-        else if (jammer.gameObject.name.Equals("Goal"))
-        {
-            SceneManager.LoadScene(1);
-        }
-    }
-
-    public void OnTriggerExit(Collider jammer)
-    {
-        if (jammer.gameObject.tag.Equals("Jammer"))
-            MaxScan = -1;
-    }
 
     void OnEnable()
 	{
-        _camera = GetComponent<Camera>();
+        _camera = Camera.main;
         _camera.depthTextureMode = DepthTextureMode.Depth;
 	}
 
@@ -110,7 +80,6 @@ public class ScannerEffectDemo : MonoBehaviour
 		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOriginPosition); //////////////////////////////////////
 		EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
         EffectMaterial.SetVector("_GoalWorldSpaceScannerPos", GoalOrigin.position);
-        EffectMaterial.SetFloat("_GoalScanDistance", GoalScanDistance);
         RaycastCornerBlit(src, dst, EffectMaterial);
 	}
 
@@ -181,9 +150,6 @@ public class ScannerEffectDemo : MonoBehaviour
         GoalOrigin = null;
         ScanDistance = 0;
         ScanSpeed = 4;
-        GoalScanDistance = 0;
-        GoalScanSpeed = 10;
-        goaldistance = 0;
         MaxScan = -1;
         scandelay = false;
         scandelaytime = 1f;
