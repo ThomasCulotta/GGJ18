@@ -4,8 +4,10 @@ using System.Collections;
 [ExecuteInEditMode]
 public class ScannerEffectDemo : MonoBehaviour
 {
-	public Transform ScannerOrigin;
 	public Material EffectMaterial;
+    public GameObject HandDevice;
+
+    [HideInInspector]
 	public float ScanDistance;
 
 	private Camera _camera;
@@ -15,13 +17,13 @@ public class ScannerEffectDemo : MonoBehaviour
 
     // VR Controller
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
-    private SteamVR_TrackedObject trackedObject;
     private SteamVR_Controller.Device device;
 
     void Start()
 	{
         _scanning = false;
-        trackedObject = GameObject.Find("/Player/SteamVRObjects/Hand1").GetComponent<SteamVR_TrackedObject>();
+        SteamVR_TrackedObject trackedObject = HandDevice.GetComponent<SteamVR_TrackedObject>();
+        device = SteamVR_Controller.Input((int)trackedObject.index);
     }
 
 	void Update()
@@ -31,7 +33,6 @@ public class ScannerEffectDemo : MonoBehaviour
 			ScanDistance += Time.deltaTime * 50;
 		}
 
-        device = SteamVR_Controller.Input((int)trackedObject.index);
         if (device.GetPressDown(triggerButton))
 		{
 			_scanning = true;
@@ -48,7 +49,7 @@ public class ScannerEffectDemo : MonoBehaviour
 			{
 				_scanning = true;
 				ScanDistance = 0;
-				ScannerOrigin.position = hit.point;
+				HandDevice.transform.position = hit.point;
 			}
 		}
 	}
@@ -63,7 +64,7 @@ public class ScannerEffectDemo : MonoBehaviour
 	// [ImageEffectOpaque]
 	void OnRenderImage(RenderTexture src, RenderTexture dst)
 	{
-		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
+		EffectMaterial.SetVector("_WorldSpaceScannerPos", HandDevice.transform.position);
 		EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
 		RaycastCornerBlit(src, dst, EffectMaterial);
 	}
