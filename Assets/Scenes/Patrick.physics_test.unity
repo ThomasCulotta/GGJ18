@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 167376389}
   - component: {fileID: 167376388}
   - component: {fileID: 167376387}
-  - component: {fileID: 167376393}
   m_Layer: 0
   m_Name: LocationDevice
   m_TagString: Untagged
@@ -226,20 +225,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &167376393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 167376386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b0a6a7c849dff64d98d0cfbaf40d26d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectMaterial: {fileID: 2100000, guid: 1d70d6ff1708302488eee800ce449c3c, type: 2}
-  ScanDistance: 0
-  ScanSpeed: 0
 --- !u!1 &449281374 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 160596, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}

@@ -12,7 +12,6 @@ public class ScannerEffectDemo : MonoBehaviour
 	private Camera _camera;
     private float MaxScan;
     private AudioSource pingsound;
-    private AudioSource goalpingsound;
     
     private Vector3 ScannerOriginPosition;
     
@@ -27,14 +26,10 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	void Start()
 	{
-
-        GameObject goal  = GameObject.FindGameObjectWithTag("Finish");
-        GoalOrigin       = goal.transform;
         ScanDistance     = 0;
         ScanSpeed        = 4;
         MaxScan          = -1;
         pingsound        = gameObject.GetComponent<AudioSource>();
-        goalpingsound    = goal.GetComponent<AudioSource>();
         scandelay        = false;
         scandelaytime    = 1f;
         trackedObject = GetComponent<SteamVR_TrackedObject>();
@@ -57,7 +52,7 @@ public class ScannerEffectDemo : MonoBehaviour
 
     void OnEnable()
 	{
-        _camera = GetComponent<Camera>();
+        _camera = Camera.main;
         _camera.depthTextureMode = DepthTextureMode.Depth;
 	}
 
