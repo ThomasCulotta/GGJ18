@@ -56,7 +56,7 @@ public class ScannerEffectDemo : MonoBehaviour
             }
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.One) && !scandelay)
+        //if (OVRInput.GetDown(OVRInput.Button.One) && !scandelay)
 		{
             scandelay = true;
 			_scanning = true;
