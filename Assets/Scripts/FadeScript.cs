@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
 
-public class FadeScript : MonoBehaviour {
+public class FadeScript : MonoBehaviour
+{
+    [SerializeField]
+    private string _levelToLoad;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown(KeyCode.K))
-        {
-            SteamVR_Fade.Start(Color.black, 2f);
-        }
+    private void OnTriggerEnter()
+    {
+        SteamVR_Fade.Start(Color.black, 2f);
+        SteamVR_LoadLevel.Begin(_levelToLoad, fadeOutTime: 2f);
 	}
 }

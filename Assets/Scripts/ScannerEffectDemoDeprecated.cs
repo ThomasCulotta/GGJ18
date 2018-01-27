@@ -36,27 +36,9 @@ public class ScannerEffectDemoDeprecated : MonoBehaviour
     }
 
 	void Update()
-<<<<<<< HEAD:Assets/Scripts/ScannerEffectDemo.cs
-	{
-        GoalScanDistance += Time.deltaTime * GoalScanSpeed;
-
-        if (_scanning && (MaxScan == -1 || ScanDistance < MaxScan))
-        {
-            ScanDistance += Time.deltaTime * ScanSpeed / (MaxScan == -1 ? 1 : 3);
-            if (ScanDistance > goaldistance - 2.2 && ScanDistance < goaldistance + 2.2)
-            {
-                goalpingsound.pitch = Random.Range(0.8f, 1f);
-                goalpingsound.Play();
-                GoalScanDistance = 0;
-            }
-        }
-
-        //if (OVRInput.GetDown(OVRInput.Button.One) && !scandelay)
-=======
 	{
         device = SteamVR_Controller.Input((int)trackedObject.index);
         if (device.GetPressDown(triggerButton) && !scandelay)
->>>>>>> patrick:Assets/Scripts/ScannerEffectDemoDeprecated.cs
 		{
             scandelay = true;
 			_scanning = true;
