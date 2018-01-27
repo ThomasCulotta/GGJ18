@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f869d3bcf55004a59b463bfb6e5adf6e
-timeCreated: 1517075209
+guid: 534a0c7e95c8a4cbc872a624565ced9d
+timeCreated: 1517092024
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,7 +9,11 @@ ModelImporter:
     100002: //RootNode
     400000: dish
     400002: //RootNode
-    2100000: dishMat
+    2100000: blinn2SG
+    2100002: blinn4SG
+    2100004: blinn5SG
+    2100006: blinn1SG
+    2100008: blinn3SG
     2300000: dish
     3300000: dish
     4300000: dish
@@ -43,7 +47,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

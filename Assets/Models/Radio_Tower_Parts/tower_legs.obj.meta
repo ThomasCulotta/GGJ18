@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 62ad30468d13a494aa5b27b8cf3a54f5
-timeCreated: 1517075212
+guid: 287e5667c43a8454eb38a8ca6461aafa
+timeCreated: 1517092023
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,7 +9,9 @@ ModelImporter:
     100002: //RootNode
     400000: legs
     400002: //RootNode
-    2100000: legsMat
+    2100000: blinn2SG
+    2100002: blinn3SG
+    2100004: blinn1SG
     2300000: legs
     3300000: legs
     4300000: legs
@@ -43,7 +45,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
