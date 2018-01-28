@@ -27,6 +27,7 @@ public class PlayerAudioController : MonoBehaviour
             if (audioLog.CanPlay)
             {
                 audioLog.CanPlay = false;
+                Destroy(other.gameObject);
                 _audioLogSource.clip = _audioLogs[_logCounter++];
                 _audioLogIntroSource.Play();
                 _audioLogSource.PlayDelayed(_audioLogIntroSource.clip.length);
