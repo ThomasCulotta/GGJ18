@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AudioLog
+public class AudioLog : MonoBehaviour
 {
     public int LogNumber => _logNumber;
 
