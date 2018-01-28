@@ -16,11 +16,6 @@ public class TrackInventory : MonoBehaviour {
         collectedItemIndex = Array.IndexOf(itemList, false);
         collectedItemIndex = collectedItemIndex == -1 ? 5 : collectedItemIndex;
         itemCountText.text = $"{collectedItemIndex}/5";
-        
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            spawnTower.SpawnTower();
-        }
     }
 
     public void UpdateItemList()
