@@ -41,12 +41,15 @@ public class ScannerEffectDemo : MonoBehaviour
             }
 		}
 
-        if (device.GetPressDown(triggerButton) && _locationDevice.CanPing)
+        if (device.GetPressDown(triggerButton))
 		{
-			_scanning = true;
-			ScanDistance = 0;
-            _locationDevice.GetRadioComponentColliders();
-            Debug.Log("Scan Sent");
+            if (_locationDevice.CanPing)
+            {
+                _scanning = true;
+                ScanDistance = 0;
+                _locationDevice.GetRadioComponentColliders();
+                Debug.Log("Scan Sent");
+            }
 		}
 	}
 	// End Demo Code
