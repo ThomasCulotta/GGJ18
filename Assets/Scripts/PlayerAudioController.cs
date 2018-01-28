@@ -11,7 +11,14 @@ public class PlayerAudioController : MonoBehaviour
 
     [SerializeField]
     private AudioClip[] _audioLogs;
-    
+
+    private int _logCounter;
+
+    private void Awake()
+    {
+        _logCounter = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("AudioLog"))
@@ -20,7 +27,7 @@ public class PlayerAudioController : MonoBehaviour
             if (audioLog.CanPlay)
             {
                 audioLog.CanPlay = false;
-                _audioLogSource.clip = _audioLogs[audioLog.LogNumber];
+                _audioLogSource.clip = _audioLogs[_logCounter++];
                 _audioLogIntroSource.Play();
                 _audioLogSource.PlayDelayed(_audioLogIntroSource.clip.length);
             }
