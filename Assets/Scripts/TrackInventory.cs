@@ -6,7 +6,9 @@ public class TrackInventory : MonoBehaviour {
 
     public bool[] itemList = { false, false, false, false, false };
     public Text itemCountText;
+    public SpawnRadioTower spawnTower;
     private int collectedItemIndex;
+    
 	
 	// Update is called once per frame
 	void Update ()
@@ -20,5 +22,10 @@ public class TrackInventory : MonoBehaviour {
     {
         // Find the first false instance
         itemList[collectedItemIndex] = true;
+
+        if (Array.IndexOf(itemList, false) == -1)
+        {
+            spawnTower.SpawnTower();
+        }
     }
 }
