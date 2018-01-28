@@ -32,7 +32,13 @@ public class ScannerEffectDemo : MonoBehaviour
 	{
 		if (_scanning)
 		{
-			ScanDistance += Time.deltaTime * 50;
+			ScanDistance += Time.deltaTime * 100;
+
+            if (ScanDistance > 100f)
+            {
+                _scanning = false;
+                ScanDistance = 0f;
+            }
 		}
 
         if (device.GetPressDown(triggerButton) && _locationDevice.CanPing)
@@ -41,19 +47,6 @@ public class ScannerEffectDemo : MonoBehaviour
 			ScanDistance = 0;
             _locationDevice.GetRadioComponentColliders();
             Debug.Log("Scan Sent");
-		}
-
-		if (Input.GetMouseButtonDown(0))
-		{
-			Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
-			if (Physics.Raycast(ray, out hit))
-			{
-				_scanning = true;
-				ScanDistance = 0;
-				HandDevice.transform.position = hit.point;
-			}
 		}
 	}
 	// End Demo Code
@@ -64,7 +57,7 @@ public class ScannerEffectDemo : MonoBehaviour
 		_camera.depthTextureMode = DepthTextureMode.Depth;
 	}
 
-	// [ImageEffectOpaque]
+	[ImageEffectOpaque]
 	void OnRenderImage(RenderTexture src, RenderTexture dst)
 	{
 		EffectMaterial.SetVector("_WorldSpaceScannerPos", HandDevice.transform.position);
