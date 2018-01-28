@@ -35,7 +35,7 @@ public class ScannerEffectDemo : MonoBehaviour
 			ScanDistance += Time.deltaTime * 50;
 		}
 
-        if (device.GetPressDown(triggerButton))
+        if (device.GetPressDown(triggerButton) && _locationDevice.CanPing)
 		{
 			_scanning = true;
 			ScanDistance = 0;
