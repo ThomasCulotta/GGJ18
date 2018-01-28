@@ -4,13 +4,9 @@ public class SpawnWhenPlayerEnters : MonoBehaviour {
 
     public GameObject spawnPoint;
     public GameObject toSpawn;
-    private Rigidbody rb;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
+    //public AudioSource LastTransmission;
+    
     void OnTriggerEnter(Collider col)
     {
         SpawnObject();
@@ -18,8 +14,10 @@ public class SpawnWhenPlayerEnters : MonoBehaviour {
 
     private void SpawnObject()
     {
-        Instantiate(toSpawn, spawnPoint.transform.position, Quaternion.identity);
+        //Instantiate(toSpawn, spawnPoint.transform.position, Quaternion.identity);
 
-        rb.gameObject.SetActive(false);
+        toSpawn.SetActive(true);
+        gameObject.SetActive(false);
+        //LastTransmission.Play();
     }
 }
