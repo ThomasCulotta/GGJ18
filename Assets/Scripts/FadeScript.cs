@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FadeScript : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class FadeScript : MonoBehaviour
 
     private void OnTriggerEnter()
     {
-        SteamVR_Fade.Start(Color.black, 2f);
-        SteamVR_LoadLevel.Begin(_levelToLoad, fadeOutTime: 2f);
+        //SteamVR_Fade.Start(Color.black, 2f);
+        SceneManager.LoadScene("Master");
+        //SteamVR_LoadLevel.Begin(_levelToLoad, fadeOutTime: 2f);
 	}
 }

@@ -6,6 +6,7 @@ public class ScannerEffectDemo : MonoBehaviour
 {
 	public Material EffectMaterial;
     public GameObject HandDevice;
+    public AudioSource PingSound;
 
     [HideInInspector]
 	public float ScanDistance;
@@ -45,6 +46,7 @@ public class ScannerEffectDemo : MonoBehaviour
 		{
             if (_locationDevice.CanPing)
             {
+                PingSound.Play();
                 _scanning = true;
                 ScanDistance = 0;
                 _locationDevice.GetRadioComponentColliders();
