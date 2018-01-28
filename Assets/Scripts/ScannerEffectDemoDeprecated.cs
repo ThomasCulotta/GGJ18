@@ -12,6 +12,7 @@ public class ScannerEffectDemoDeprecated : MonoBehaviour
 	private Camera _camera;
     private float MaxScan;
     private AudioSource pingsound;
+    private LocationDevice _locationDevice;
     
     private Vector3 ScannerOriginPosition;
     
@@ -30,6 +31,7 @@ public class ScannerEffectDemoDeprecated : MonoBehaviour
         ScanSpeed        = 4;
         MaxScan          = -1;
         pingsound        = gameObject.GetComponent<AudioSource>();
+        _locationDevice  = gameObject.GetComponent<LocationDevice>();
         scandelay        = false;
         scandelaytime    = 1f;
         trackedObject = GetComponent<SteamVR_TrackedObject>();
@@ -46,6 +48,7 @@ public class ScannerEffectDemoDeprecated : MonoBehaviour
             ScannerOriginPosition = transform.position;
             pingsound.pitch = Random.Range(0.8f, 1.1f);
             pingsound.Play();
+            _locationDevice.GetRadioComponentColliders();
 		}
 	}
 
