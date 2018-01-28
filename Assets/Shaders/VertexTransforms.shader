@@ -12,8 +12,8 @@ Shader "Custom/VertexTransforms" {
         _Frequency("Frequency", Float) = 0.0
 
         _XAmplitude("XAmplitude", Range(0, 0.1)) = 0.0
-        _YawAmplitude("YawAmplitude", Range(0, 0.50)) = 0.0
-        _RollAmplitude("RollAmplitude", Range(0, 0.50)) = 0.0
+        _YawAmplitude("YawAmplitude", Range(0, 0.050)) = 0.0
+        _RollAmplitude("RollAmplitude", Range(0, 0.050)) = 0.0
 	}
 
 	SubShader {
