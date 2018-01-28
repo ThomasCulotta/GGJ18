@@ -11,6 +11,7 @@ ModelImporter:
     400002: //RootNode
     2100000: blinn1SG
     2100002: blinn2SG
+    2100004: stalkMat
     2300000: stalk
     3300000: stalk
     4300000: stalk

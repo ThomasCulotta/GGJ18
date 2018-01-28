@@ -20,10 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4709189185431214}
   - component: {fileID: 33587104459941926}
-  - component: {fileID: 65953560519220210}
   - component: {fileID: 23117195215196688}
-  - component: {fileID: 114664324427752452}
-  - component: {fileID: 114184242073974324}
+  - component: {fileID: 114530797945719002}
+  - component: {fileID: 114283301308344180}
   m_Layer: 0
   m_Name: AudioLog
   m_TagString: Untagged
@@ -37,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1261061706242576}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 313.62, z: 71}
-  m_LocalScale: {x: 0.43343198, y: 0.43343198, z: 0.43343174}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23117195215196688
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -58,7 +57,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: bbb6d5eac0fd41a44aa76c3209f49098, type: 2}
+  - {fileID: 2100000, guid: 9562d13e4955ce34dac864f125cc8e5a, type: 3}
+  - {fileID: 2100002, guid: 9562d13e4955ce34dac864f125cc8e5a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
@@ -84,20 +84,8 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1261061706242576}
-  m_Mesh: {fileID: 4300000, guid: a7d0bb5fcc74f4f09ad54778ebd4fae8, type: 3}
---- !u!65 &65953560519220210
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1261061706242576}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114184242073974324
+  m_Mesh: {fileID: 4300000, guid: 9562d13e4955ce34dac864f125cc8e5a, type: 3}
+--- !u!114 &114283301308344180
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -110,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanPlay: 1
   _logNumber: 0
---- !u!114 &114664324427752452
+--- !u!114 &114530797945719002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

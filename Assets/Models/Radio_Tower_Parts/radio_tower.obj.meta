@@ -22,6 +22,11 @@ ModelImporter:
     2100004: blinn5SG
     2100006: blinn1SG
     2100008: blinn3SG
+    2100010: dishMat
+    2100012: legsMat
+    2100014: reflectorsMat
+    2100016: solarpanelsMat
+    2100018: stalkMat
     2300000: dish
     2300002: legs
     2300004: reflectors
@@ -37,7 +42,32 @@ ModelImporter:
     4300004: reflectors
     4300006: solarpanels
     4300008: stalk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dishMat
+    second: {fileID: 2100000, guid: 00000000000000000000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: legsMat
+    second: {fileID: 2100000, guid: 00000000000000000000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: reflectorsMat
+    second: {fileID: 2100000, guid: 00000000000000000000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: solarpanelsMat
+    second: {fileID: 2100000, guid: 00000000000000000000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stalkMat
+    second: {fileID: 2100000, guid: 00000000000000000000000000000000, type: 0}
   materials:
     importMaterials: 1
     materialName: 0
