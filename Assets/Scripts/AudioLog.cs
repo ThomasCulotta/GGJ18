@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class AudioLog
+public class AudioLog : MonoBehaviour
 {
+    [HideInInspector]
+    public bool CanPlay = true;
+
     public int LogNumber => _logNumber;
 
     [SerializeField]

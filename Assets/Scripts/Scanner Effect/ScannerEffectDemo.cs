@@ -11,9 +11,10 @@ public class ScannerEffectDemo : MonoBehaviour
 	public float ScanDistance;
 
 	private Camera _camera;
+    private LocationDevice _locationDevice;
 
-	// Demo Code
-	bool _scanning;
+    // Demo Code
+    bool _scanning;
 
     // VR Controller
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -22,6 +23,7 @@ public class ScannerEffectDemo : MonoBehaviour
     void Start()
 	{
         _scanning = false;
+        _locationDevice = gameObject.GetComponent<LocationDevice>();
         SteamVR_TrackedObject trackedObject = HandDevice.GetComponent<SteamVR_TrackedObject>();
         device = SteamVR_Controller.Input((int)trackedObject.index);
     }
@@ -33,10 +35,11 @@ public class ScannerEffectDemo : MonoBehaviour
 			ScanDistance += Time.deltaTime * 50;
 		}
 
-        if (device.GetPressDown(triggerButton))
+        if (device.GetPressDown(triggerButton) && _locationDevice.CanPing)
 		{
 			_scanning = true;
 			ScanDistance = 0;
+            _locationDevice.GetRadioComponentColliders();
             Debug.Log("Scan Sent");
 		}
 
